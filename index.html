@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>サンミュージック GETライブ 好き顔9選</title>
+  <style>
+    :root {
+      --main-yellow: #fbc02d;
+      --yellow-light: #fff9c4;
+      --yellow-dark: #f57f17;
+      --bg-color: #fdfbf7;
+      --card-bg: #ffffff;
+      --text-main: #212121;
+      --text-sub: #666666;
+      --border-color: #e0e0e0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 16px;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border: 2px solid var(--main-yellow);
+    }
+
+    h1 {
+      font-size: 1.3rem;
+      text-align: center;
+      margin-bottom: 16px;
+      color: #333;
+      border-bottom: 3px solid var(--main-yellow);
+      padding-bottom: 8px;
+    }
+
+    /* 共通ボタン */
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 12px 16px;
+      background-color: var(--main-yellow);
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn:disabled {
+      background-color: #e0e0e0;
+      color: #999;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .btn-secondary {
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    /* スタート（案内）フェーズ */
+    .intro-box {
+      background-color: var(--yellow-light);
+      border: 1px solid var(--main-yellow);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+
+    .intro-box ul {
+      margin-top: 8px;
+      padding-left: 20px;
+    }
+
+    .intro-box li {
+      margin-bottom: 4px;
+      color: var(--text-sub);
+    }
+
+    /* 選択フェーズ */
+    .selection-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      font-weight: bold;
+    }
+
+    .select-all-btn {
+      background: none;
+      border: 1px solid var(--main-yellow);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .item-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+      min-height: 280px;
+    }
+
+    .item-card {
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px;
+      text-align: center;
+      cursor: pointer;
+      background-color: #fff;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      user-select: none;
+    }
+
+    .item-card.selected {
+      border-color: var(--yellow-dark);
+      background-color: var(--yellow-light);
+    }
+
+    .item-card img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+
+    .group-name {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .item-name {
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: var(--text-main);
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      gap: 8px;
+    }
+
+    .pagination .btn {
+      width: 48%;
+      padding: 8px;
+      font-size: 0.9rem;
+    }
+
+    .page-info {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    /* 比較フェーズ */
+    .battle-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .battle-card {
+      border: 3px solid var(--main-yellow);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      background: #fff;
+      transition: transform 0.1s, box-shadow 0.2s;
+    }
+
+    .battle-card:active {
+      transform: scale(0.98);
+      background-color: var(--yellow-light);
+    }
+
+    .battle-card img {
+      width: 100%;
+      max-height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .battle-card .group-name {
+      font-size: 0.85rem;
+    }
+
+    .battle-card .item-name {
+      font-size: 1.1rem;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      background-color: #eee;
+      border-radius: 8px;
+      height: 12px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background-color: var(--main-yellow);
+      width: 0%;
+      transition: width 0.3s;
+    }
+
+    .progress-text {
+      font-size: 0.85rem;
+      text-align: center;
+      color: var(--text-sub);
+      margin-bottom: 12px;
+    }
+
+    /* 結果フェーズ */
+    .result-list {
+      list-style: none;
+      margin-bottom: 16px;
+    }
+
+    .result-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .result-rank {
+      font-weight: bold;
+      width: 36px;
+      font-size: 1.1rem;
+      color: var(--yellow-dark);
+    }
+
+    .result-img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-right: 12px;
+    }
+
+    .result-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .result-details .group-name {
+      font-size: 0.75rem;
+    }
+
+    .result-details .item-name {
+      font-size: 1rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>サンミュージック GETライブ 好き顔9選</h1>
+
+  <!-- 0. スタート（案内）フェーズ -->
+  <div id="intro-phase">
+    <div class="intro-box">
+      <p><strong>【ご注意・お願い】</strong></p>
+      <ul>
+        <li>当サイトは個人が趣味で制作したものであり、所属事務所・公式とは一切関係がありません。</li>
+        <li>予告なく公開を終了または内容を変更する場合があります。あらかじめご了承ください。</li>
+      </ul>
+    </div>
+    <button class="btn" id="initBtn">はじめる</button>
+  </div>
+
+  <!-- 1. 選択フェーズ -->
+  <div id="selection-phase" class="hidden">
+    <div class="selection-header">
+      <span id="selected-count">選択中: 0人</span>
+      <button class="select-all-btn" id="selectAllBtn">全選択 / 解除</button>
+    </div>
+
+    <div class="page-info" id="pageInfo">1 / 1 ページ</div>
+
+    <div class="item-grid" id="itemGrid"></div>
+
+    <div class="pagination">
+      <button class="btn btn-secondary" id="prevBtn">前へ</button>
+      <button class="btn btn-secondary" id="nextBtn">次へ</button>
+    </div>
+
+    <button class="btn" id="startBtn" disabled>9人以上選んでね（現在 0人）</button>
+  </div>
+
+  <!-- 2. 比較フェーズ -->
+  <div id="battle-phase" class="hidden">
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-text" id="progressText">進行度: 0%</div>
+
+    <div class="battle-container">
+      <div class="battle-card" id="leftCard">
+        <img id="leftImg" src="" alt="">
+        <span class="group-name" id="leftGroup"></span>
+        <span class="item-name" id="leftName"></span>
+      </div>
+
+      <button class="btn btn-secondary" id="drawBtn">引き分け / どちらも好き</button>
+
+      <div class="battle-card" id="rightCard">
+        <img id="rightImg" src="" alt="">
+        <span class="group-name" id="rightGroup"></span>
+        <span class="item-name" id="rightName"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 結果フェーズ -->
+  <div id="result-phase" class="hidden">
+    <h2>結果発表</h2>
+    <ul class="result-list" id="resultList"></ul>
+    <button class="btn" id="restartBtn">もう一度やる</button>
+  </div>
+</div>
+
+<script>
+  // データリスト（グループ名、名前、画像ファイル名を記載）
+  const allItems = [
+    { group: "コンビ名A", name: "メンバー1", img: "IMG_7631.jpeg" },
+    { group: "コンビ名A", name: "メンバー2", img: "IMG_7632.jpeg" },
+    { group: "トリオ名B", name: "メンバー3", img: "IMG_7633.jpeg" },
+    { group: "トリオ名B", name: "メンバー4", img: "IMG_7634.jpeg" },
+    { group: "トリオ名B", name: "メンバー5", img: "IMG_7635.jpeg" },
+    { group: "ピン", name: "メンバー6", img: "IMG_7636.jpeg" },
+    { group: "コンビ名C", name: "メンバー7", img: "IMG_7637.jpeg" },
+    { group: "コンビ名C", name: "メンバー8", img: "IMG_7638.jpeg" },
+    { group: "コンビ名D", name: "メンバー9", img: "IMG_7639.jpeg" }
+    // 画像に合わせてここに追加していってね！
+  ];
+
+  let selectedIndices = new Set();
+  let currentPage = 0;
+  const itemsPerPage = 4;
+
+  // ソートロジック用変数
+  let sortedList = [];
+  let mergeTasks = [];
+  let currentTask = null;
+  let leftChunk = [];
+  let rightChunk = [];
+  let leftIdx = 0;
+  let rightIdx = 0;
+  let resultChunk = [];
+  let totalStepsEstimate = 0;
+  let completedSteps = 0;
+
+  // DOM要素
+  const introPhase = document.getElementById("intro-phase");
+  const initBtn = document.getElementById("initBtn");
+
+  const itemGrid = document.getElementById("itemGrid");
+  const pageInfo = document.getElementById("pageInfo");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const startBtn = document.getElementById("startBtn");
+  const selectedCountEl = document.getElementById("selected-count");
+  const selectAllBtn = document.getElementById("selectAllBtn");
+
+  const selectionPhase = document.getElementById("selection-phase");
+  const battlePhase = document.getElementById("battle-phase");
+  const resultPhase = document.getElementById("result-phase");
+
+  // 「はじめる」ボタンを押したら選択画面へ
+  initBtn.addEventListener("click", () => {
+    introPhase.classList.add("hidden");
+    selectionPhase.classList.remove("hidden");
+    renderGrid();
+    updateSelectionStatus();
+  });
+
+  // 初期化・グリッド描画
+  function renderGrid() {
+    itemGrid.innerHTML = "";
+    const start = currentPage * itemsPerPage;
+    const end = Math.min(start + itemsPerPage, allItems.length);
+    const pageItems = allItems.slice(start, end);
+
+    pageItems.forEach((item, pageIdx) => {
+      const realIdx = start + pageIdx;
+      const card = document.createElement("div");
+      card.className = `item-card ${selectedIndices.has(realIdx) ? 'selected' : ''}`;
+      
+      card.innerHTML = `
+        <img src="${item.img}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/150?text=No+Image'">
+        <span class="group-name">${item.group || ''}</span>
+        <span class="item-name">${item.name}</span>
+      `;
+
+      card.addEventListener("click", () => {
+        if (selectedIndices.has(realIdx)) {
+          selectedIndices.delete(realIdx);
+        } else {
+          selectedIndices.add(realIdx);
+        }
+        renderGrid();
+        updateSelectionStatus();
+      });
+
+      itemGrid.appendChild(card);
+    });
+
+    const totalPages = Math.ceil(allItems.length / itemsPerPage) || 1;
+    pageInfo.textContent = `${currentPage + 1} / ${totalPages} ページ`;
+
+    prevBtn.disabled = currentPage === 0;
+    nextBtn.disabled = currentPage >= totalPages - 1;
+  }
+
+  function updateSelectionStatus() {
+    const count = selectedIndices.size;
+    selectedCountEl.textContent = `選択中: ${count}人`;
+    
+    if (count >= 9) {
+      startBtn.disabled = false;
+      startBtn.textContent = `選んだ ${count} 人で2択スタート！`;
+    } else {
+      startBtn.disabled = true;
+      startBtn.textContent = `9人以上選んでね（現在 ${count}人）`;
+    }
+  }
+
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 0) {
+      currentPage--;
+      renderGrid();
+    }
+  });
+
+  nextBtn.addEventListener("click", () => {
+    const totalPages = Math.ceil(allItems.length / itemsPerPage);
+    if (currentPage < totalPages - 1) {
+      currentPage++;
+      renderGrid();
+    }
+  });
+
+  selectAllBtn.addEventListener("click", () => {
+    if (selectedIndices.size === allItems.length) {
+      selectedIndices.clear();
+    } else {
+      allItems.forEach((_, idx) => selectedIndices.add(idx));
+    }
+    renderGrid();
+    updateSelectionStatus();
+  });
+
+  // スタート処理（マージソート準備）
+  startBtn.addEventListener("click", () => {
+    const targets = Array.from(selectedIndices).map(idx => allItems[idx]);
+    
+    let chunks = targets.map(item => [item]);
+    mergeTasks = [];
+
+    while (chunks.length > 1) {
+      let nextChunks = [];
+      for (let i = 0; i < chunks.length; i += 2) {
+        if (i + 1 < chunks.length) {
+          mergeTasks.push([chunks[i], chunks[i + 1]]);
+          nextChunks.push([]);
+        } else {
+          nextChunks.push(chunks[i]);
+        }
+      }
+      chunks = nextChunks;
+    }
+
+    totalStepsEstimate = targets.length * Math.log2(targets.length);
+    completedSteps = 0;
+
+    selectionPhase.classList.add("hidden");
+    battlePhase.classList.remove("hidden");
+
+    setupNextMergeTask();
+  });
+
+  function setupNextMergeTask() {
+    if (mergeTasks.length === 0) {
+      showResults();
+      return;
+    }
+
+    currentTask = mergeTasks.shift();
+    leftChunk = currentTask[0];
+    rightChunk = currentTask[1];
+    leftIdx = 0;
+    rightIdx = 0;
+    resultChunk = [];
+
+    showBattle();
+  }
+
+  function showBattle() {
+    if (leftIdx >= leftChunk.length) {
+      resultChunk.push(...rightChunk.slice(rightIdx));
+      finishTask();
+      return;
+    }
+    if (rightIdx >= rightChunk.length) {
+      resultChunk.push(...leftChunk.slice(leftIdx));
+      finishTask();
+      return;
+    }
+
+    const leftItem = leftChunk[leftIdx];
+    const rightItem = rightChunk[rightIdx];
+
+    document.getElementById("leftImg").src = leftItem.img;
+    document.getElementById("leftGroup").textContent = leftItem.group || '';
+    document.getElementById("leftName").textContent = leftItem.name;
+
+    document.getElementById("rightImg").src = rightItem.img;
+    document.getElementById("rightGroup").textContent = rightItem.group || '';
+    document.getElementById("rightName").textContent = rightItem.name;
+
+    const progress = Math.min(Math.round((completedSteps / totalStepsEstimate) * 100), 99);
+    document.getElementById("progressBar").style.width = `${progress}%`;
+    document.getElementById("progressText").textContent = `進行度: 約 ${progress}%`;
+  }
+
+  function choose(winner) {
+    completedSteps++;
+    if (winner === 'left') {
+      resultChunk.push(leftChunk[leftIdx]);
+      leftIdx++;
+    } else if (winner === 'right') {
+      resultChunk.push(rightChunk[rightIdx]);
+      rightIdx++;
+    } else {
+      resultChunk.push(leftChunk[leftIdx]);
+      resultChunk.push(rightChunk[rightIdx]);
+      leftIdx++;
+      rightIdx++;
+    }
+    showBattle();
+  }
+
+  function finishTask() {
+    if (mergeTasks.length === 0 && leftIdx >= leftChunk.length && rightIdx >= rightChunk.length) {
+      sortedList = resultChunk;
+      showResults();
+    } else {
+      setupNextMergeTask();
+    }
+  }
+
+  document.getElementById("leftCard").addEventListener("click", () => choose('left'));
+  document.getElementById("rightCard").addEventListener("click", () => choose('right'));
+  document.getElementById("drawBtn").addEventListener("click", () => choose('draw'));
+
+  function showResults() {
+    battlePhase.classList.add("hidden");
+    resultPhase.classList.remove("hidden");
+
+    const resultList = document.getElementById("resultList");
+    resultList.innerHTML = "";
+
+    sortedList.forEach((item, index) => {
+      const li = document.createElement("li");
+      li.className = "result-item";
+      li.innerHTML = `
+        <span class="result-rank">${index + 1}</span>
+        <img class="result-img" src="${item.img}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/150?text=No+Image'">
+        <div class="result-details">
+          <span class="group-name">${item.group || ''}</span>
+          <span class="item-name">${item.name}</span>
+        </div>
+      `;
+      resultList.appendChild(li);
+    });
+  }
+
+  document.getElementById("restartBtn").addEventListener("click", () => {
+    resultPhase.classList.add("hidden");
+    introPhase.classList.remove("hidden");
+    selectedIndices.clear();
+    currentPage = 0;
+  });
+</script>
+
+</body>
+</html>
